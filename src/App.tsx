@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchImages } from "../api";
+import { fetchImages } from "./components/Api/api";
 import toast from "react-hot-toast";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
@@ -7,23 +7,24 @@ import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
+import { UnsplashImage } from "./components/Api/types";
 
 export default function App() {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasError, setHasError] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
+  const [images, setImages] = useState<UnsplashImage[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string>("");
 
-  const openModal = (imageUrl) => {
+  const openModal = (imageUrl: string): void => {
     setSelectedImage(imageUrl);
     setModalIsOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setModalIsOpen(false);
   };
 
@@ -47,7 +48,7 @@ export default function App() {
       });
   }, [query, page]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (!inputValue.trim()) {
       toast.error("Please enter an image name to search!");
@@ -60,7 +61,7 @@ export default function App() {
     setHasError(false);
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (): void => {
     setPage((prevPage) => prevPage + 1);
   };
 
@@ -68,7 +69,9 @@ export default function App() {
     <div>
       <SearchBar
         value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setInputValue(event.target.value)
+        }
         onSubmit={handleSubmit}
       />
 

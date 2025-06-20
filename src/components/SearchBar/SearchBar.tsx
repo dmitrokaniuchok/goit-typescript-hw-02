@@ -1,7 +1,17 @@
 import styles from "./SearchBar.module.css";
 import { Toaster } from "react-hot-toast";
 
-export default function SearchBar({ value, onChange, onSubmit }) {
+interface SearchBarProps {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export default function SearchBar({
+  value,
+  onChange,
+  onSubmit,
+}: SearchBarProps) {
   return (
     <header className={styles.header}>
       <form onSubmit={onSubmit} className={styles.form}>

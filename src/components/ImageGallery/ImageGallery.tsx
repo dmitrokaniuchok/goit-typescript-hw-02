@@ -1,7 +1,13 @@
 import ImageCard from "./ImageCard.jsx";
 import styles from "./ImageGallery.module.css";
+import { type UnsplashImage } from "../Api/types.js";
 
-export default function Imagegallery({ images, openModal }) {
+interface ImageGalleryProps {
+  images: UnsplashImage[];
+  openModal: (imageURL: string) => void;
+}
+
+export default function ImageGallery({ images, openModal }: ImageGalleryProps) {
   return (
     <ul className={styles.containerList}>
       {images.map((image) => {
