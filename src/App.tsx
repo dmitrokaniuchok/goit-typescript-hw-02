@@ -7,7 +7,7 @@ import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
-import { UnsplashImage } from "./components/Api/types";
+import { ImageSearchResponse, UnsplashImage } from "./components/Api/types";
 
 export default function App() {
   const [images, setImages] = useState<UnsplashImage[]>([]);
@@ -35,7 +35,7 @@ export default function App() {
     setHasError(false);
 
     fetchImages(query, page)
-      .then((data) => {
+      .then((data: ImageSearchResponse) => {
         if (data.results.length === 0 && page === 1) {
           toast.error("No images found.");
         }
